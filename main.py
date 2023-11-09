@@ -16,6 +16,7 @@ def menu():
 def add_task():
     new_task = input("Enter new task: ")
     tasks.append(new_task)
+    print(' ')
 
 
 def modify_task():
@@ -27,6 +28,8 @@ def modify_task():
         mod_task = input("What is the updated task? ")
         tasks[modify - 1] = mod_task
 
+    print(' ')
+
 
 def delete_task():
     if len(tasks) == 0:
@@ -36,6 +39,7 @@ def delete_task():
         selected_task = int(input("Which task do you want to delete? "))
         del tasks[selected_task - 1]
 
+    print(' ')
 
 def show_all_tasks():
     if len(tasks) == 0:
@@ -46,6 +50,7 @@ def show_all_tasks():
             print(f"{index}. {item}")
             index += 1
 
+    print(' ')
 
 tasks = []
 
@@ -55,7 +60,7 @@ while True:
     while True:
         try:
             choice = int(input("\nPlease make a selection: "))
-            if choice not in range(0,4):
+            if choice not in range(0,5):
                 print("Invalid choice")
                 continue
             else:
