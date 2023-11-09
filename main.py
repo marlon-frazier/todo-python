@@ -19,23 +19,32 @@ def add_task():
 
 
 def modify_task():
-    show_all_tasks()
-    modify = int(input("Which task do you want to modify? "))
-    mod_task = input("What is the updated task? ")
-    tasks[modify - 1] = mod_task
+    if len(tasks) == 0:
+        print("No tasks currently; add tasks first!")
+    else:
+        show_all_tasks()
+        modify = int(input("Which task do you want to modify? "))
+        mod_task = input("What is the updated task? ")
+        tasks[modify - 1] = mod_task
 
 
 def delete_task():
-    show_all_tasks()
-    selected_task = int(input("Which task do you want to delete? "))
-    del tasks[selected_task - 1]
+    if len(tasks) == 0:
+        print("No tasks currently; add tasks first!")
+    else:
+        show_all_tasks()
+        selected_task = int(input("Which task do you want to delete? "))
+        del tasks[selected_task - 1]
 
 
 def show_all_tasks():
-    index = 1
-    for item in tasks:
-        print(f"{index}. {item}")
-        index += 1
+    if len(tasks) == 0:
+        print("TODO List currently empty")
+    else:
+        index = 1
+        for item in tasks:
+            print(f"{index}. {item}")
+            index += 1
 
 
 tasks = []
@@ -43,7 +52,16 @@ tasks = []
 
 while True:
     menu()
-    choice = int(input("\nPlease make a selection: "))
+    while True:
+        try:
+            choice = int(input("\nPlease make a selection: "))
+            if choice not in range(0,4):
+                print("Invalid choice")
+                continue
+            else:
+                break
+        except ValueError:
+            print("Invalid choice")
 
     if choice == 1:
         add_task()
