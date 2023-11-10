@@ -1,9 +1,6 @@
 import sys
 
 
-
-
-
 def menu():
     print("TODO APPLICATION")
     print("1) Add new task")
@@ -14,10 +11,11 @@ def menu():
 
 
 def add_task():
-    new_task = input("Enter new task: ")
-    tasks.append(new_task)
-    print(' ')
-
+    with open('tasks.txt', 'a') as file:
+        new_task = input("Enter new task: ")
+        tasks.append(new_task)
+        file.write(f"{new_task},")
+        print(' ')
 
 def modify_task():
     if len(tasks) == 0:
@@ -27,7 +25,9 @@ def modify_task():
         modify = int(input("Which task do you want to modify? "))
         mod_task = input("What is the updated task? ")
         tasks[modify - 1] = mod_task
-
+        with open('tasks.txt', 'w') as file:
+           for task in tasks:
+               file.write(f"{task},")
     print(' ')
 
 
@@ -38,6 +38,9 @@ def delete_task():
         show_all_tasks()
         selected_task = int(input("Which task do you want to delete? "))
         del tasks[selected_task - 1]
+        with open('tasks.txt', 'w') as file:
+            for task in tasks:
+                file.write(f"{task},")
 
     print(' ')
 
@@ -47,12 +50,17 @@ def show_all_tasks():
     else:
         index = 1
         for item in tasks:
-            print(f"{index}. {item}")
-            index += 1
+            if item == '':
+                continue
+            else:
+                print(f"{index}. {item}")
+                index += 1
 
     print(' ')
 
-tasks = []
+with open('tasks.txt', 'r') as file:
+    content = file.read()
+    tasks = content.split(',')
 
 
 while True:
@@ -79,4 +87,5 @@ while True:
     elif choice == 0:
         break
 
+file.close()
 sys.exit()
